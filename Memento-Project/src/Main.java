@@ -21,7 +21,7 @@ public class Main extends Application {
         // 페이지 생성 (홈, 할 일, 로그인)
         HomePage homePage = new HomePage();
         ToDoPage toDoPage = new ToDoPage();
-        LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = new LoginPage();   
 
         // 하단 네비게이션 바 생성
         NavigationBar navigationBar = new NavigationBar(
@@ -29,7 +29,7 @@ public class Main extends Application {
             toDoPage.getLayout(), 
             loginPage.getLayout(), 
             this
-        );
+        ); 
 
         // 로고가 있는 상단 레이아웃 생성
         VBox topLayout = createTopLayout();

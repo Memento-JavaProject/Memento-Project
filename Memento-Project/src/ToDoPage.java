@@ -3,35 +3,44 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.geometry.Insets;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToDoPage {
-    private StackPane layout;
-    private VBox checklistContainer; // To hold the checklist items
-    private Button addButton;         // Button to add checklist items
+    private StackPane layout; // 기본 레이아웃을 StackPane으로 설정
+    private VBox todoList; // 체크리스트 항목을 담을 VBox
+    private List<CheckBox> todoItems; // 체크리스트 항목을 관리하는 리스트
+    private Button addButton; // 플러스 버튼
 
     public ToDoPage() {
-        // Initialize layout and container for checklists
-        layout = new StackPane();
-        checklistContainer = new VBox(10); // 10 pixels spacing between items
+        todoItems = new ArrayList<>();
+        todoList = new VBox();
+        todoList.setSpacing(10); // 체크리스트 항목 간격 설정
+        todoList.setPadding(new Insets(10));
 
-        // Create a button to add checklist items
+        layout = new StackPane(); // StackPane 생성
+        layout.setStyle("-fx-background-color: #FFFFFF;");
+
+        // 플러스 버튼 생성
         addButton = new Button("+");
-        addButton.setOnAction(e -> addChecklistItem()); // Add action for button click
+        addButton.setOnAction(e -> addTodoItem());
 
-        // Add button and checklist container to the main layout
-        VBox mainLayout = new VBox(10); // Use VBox for vertical layout
-        mainLayout.getChildren().addAll(checklistContainer, addButton); // Add checklist and button
-        layout.getChildren().add(mainLayout); // Set the main layout
-        layout.setStyle("-fx-background-color: #FFFFFF;"); // Set background color
+        // 전체 레이아웃에 체크리스트와 플러스 버튼 추가
+        VBox vbox = new VBox(10, todoList, addButton); // VBox 사용
+        vbox.setPadding(new Insets(20));
+        layout.getChildren().add(vbox); // StackPane에 VBox 추가
     }
 
-    // Method to add a checklist item
-    private void addChecklistItem() {
-        CheckBox checklistItem = new CheckBox("Checklist Item " + (checklistContainer.getChildren().size() + 1));
-        checklistContainer.getChildren().add(checklistItem); // Add the checkbox to the container
+    // 체크리스트 항목 추가
+    private void addTodoItem() {
+        CheckBox newCheckBox = new CheckBox("새 할 일");
+        todoItems.add(newCheckBox);
+        todoList.getChildren().add(newCheckBox);
     }
 
-    public StackPane getLayout() {
+    public StackPane getLayout() { // StackPane 반환
         return layout;
     }
 }
